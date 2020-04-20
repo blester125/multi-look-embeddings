@@ -1,12 +1,15 @@
 import os
 import json
 import argparse
+from typing import Tuple
 import numpy as np
 import word_vectors as wv
 from .utils import required_length, load_embeddings, parse_file_type, write_embeddings
 
 
-def combine_vocabs(base_vocab, base_vectors, new_vocab, new_vectors):
+def combine_vocabs(
+    base_vocab: wv.Vocab, base_vectors: wv.Vectors, new_vocab: wv.Vocab, new_vectors: wv.Vectors
+) -> Tuple[wv.Vocab, wv.Vectors]:
     new_new_vectors = []
     for word, idx in new_vocab.items():
         if word not in base_vocab:
@@ -17,12 +20,19 @@ def combine_vocabs(base_vocab, base_vectors, new_vocab, new_vectors):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("embeddings", nargs="+", action=required_length(2))
+    parser = argparse.ArgumentParser(
+        description="Add new words from other pretrained embeddings to some base embeddings"
+    )
+    parser.add_argument(
+        "embeddings",
+        nargs="+",
+        action=required_length(2),
+        help="The pretrained embeddings to process, the first embedding is the base that others are processed relative too.",
+    )
     parser.add_argument("--embeddings_index", "--embeddings-index", default="configs/embeddings.json")
     parser.add_argument("--cache", default="data")
     parser.add_argument(
-        "--output_format", "--output-format", default="w2v", choices=("dense", "glove", "w2v"), type=parse_file_type,
+        "--output_format", "--output-format", default="w2v", choices=("glove", "w2v"), type=parse_file_type,
     )
     parser.add_argument("--output_label", "--output-label")
     parser.add_argument("--output_file", "--output-file")
@@ -51,7 +61,7 @@ def main():
 
     write_embeddings(args.output_file, base_vocab, base_vectors, args.output_format)
 
-    print(json.dumps({"label": args.output_label, "file": args.output_file, "dsz": base_vectors.shape[1],}, indent=2,))
+    print(json.dumps({"label": args.output_label, "file": args.output_file, "dsz": base_vectors.shape[1],}, indent=2))
 
 
 if __name__ == "__main__":
