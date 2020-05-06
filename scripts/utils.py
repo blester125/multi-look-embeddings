@@ -1,7 +1,7 @@
 import argparse
-from typing import List, Dict, Tuple, Callable
+from typing import List, Dict, Tuple, Callable, Optional
 import word_vectors as wv
-from baseline.utils import EmbeddingDownloader
+from baseline.utils import EmbeddingDownloader, DataDownloader, read_conll, read_label_first_data
 from mead.utils import index_by_label, read_config_file_or_json
 
 
@@ -36,6 +36,48 @@ def download_embeddings(embeddings: List[str], embeddings_index: str, cache: str
             embedding["file"], embedding["dsz"], embedding.get("sha1"), cache
         ).download()
     return embeddings_map
+
+
+def download_dataset(dataset: str, dataset_index: str, cache: str) -> Dict[str, str]:
+    dataset_index = index_by_label(read_config_file_or_json(dataset_index))
+    return DataDownloader(dataset_index[dataset], cache).download()
+
+
+def read_conll_dataset(
+    file_name: str,
+    surface_index: int = 0,
+    delim: Optional[str] = None,
+    **kwargs
+) -> List[List[str]]:
+    surfaces = []
+    for sentence in read_conll(file_name, delim):
+        surf = list(zip(*sentence))[surface_index]
+        surfaces.append(surf)
+    return surfaces
+
+
+def read_label_first(
+    file_name: str,
+    **kwargs
+) -> List[List[str]]:
+    _, surfaces = read_label_first_data(file_name)
+    return surfaces
+
+
+def load_dataset(
+    dataset: str,
+    dataset_index: str,
+    cache: str,
+    download: Callable = download_dataset,
+    read: Callable = read_conll_dataset,
+    **kwargs
+) -> Dict[str, List[List[str]]]:
+    dataset = download_dataset(dataset, dataset_index, cache)
+    return {
+        'train': read(dataset['train_file'], **kwargs),
+        'dev': read(dataset['valid_file'], **kwargs),
+        'test': read(dataset['test_file'], **kwargs)
+    }
 
 
 def read_embeddings(embeddings: Dict[str, str]) -> Dict[str, Tuple[wv.Vocab, wv.Vectors]]:
