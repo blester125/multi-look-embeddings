@@ -19,13 +19,11 @@ def complement_vocab(base_vocab: wv.Vocab, new_vocab: wv.Vocab, new_vectors: wv.
     new_new_vectors = []
     new_new_vocab = {}
     new_idx = 0
-    import pdb; pdb.set_trace()
     for word, idx, in new_vocab.items():
         if word not in base_vocab and word not in new_new_vocab:
             new_new_vocab[word] = new_idx
             new_idx += 1
             new_new_vectors.append(new_vectors[idx])
-    import pdb; pdb.set_trace()
     new_new_vectors = np.array(new_new_vectors)
     assert len(new_new_vocab) == new_new_vectors.shape[0]
     return new_new_vocab, new_new_vectors
@@ -46,8 +44,8 @@ def main():
     parser.add_argument(
         "--output_format", "--output-format", default="w2v", choices=("glove", "w2v"), type=parse_file_type
     )
-    parser.add_argument("--output_labels", "--output-labels")
-    parser.add_argument("--output_files", "--output-files")
+    parser.add_argument("--output_labels", "--output-labels", nargs="+")
+    parser.add_argument("--output_files", "--output-files", nargs="+")
     args = parser.parse_args()
 
     args.output_labels = (

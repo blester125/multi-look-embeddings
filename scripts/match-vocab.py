@@ -16,7 +16,6 @@ def match_vocab(base_vocab: wv.Vocab, new_vocab: wv.Vocab, new_vectors: wv.Vecto
             new_new_vocab[word] = new_idx
             new_idx += 1
             new_new_vectors.append(new_vectors[idx])
-    import pdb; pdb.set_trace()
     new_new_vectors = np.array(new_new_vectors)
     assert len(new_new_vocab) == new_new_vectors.shape[0]
     return new_new_vocab, new_new_vectors
