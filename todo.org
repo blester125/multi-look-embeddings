@@ -1,0 +1,34 @@
+* TODO Why multiple embeddings work [0/3]
+  - [ ] Embeddings that have no overlapping vocab (is it because we have more
+    coverage or the vocab?)
+  - [ ] Embeddings that only have overlapping vocab (is it because we have
+    different looks at the data)
+* TODO How to detect if multiple embeddings will with together well [0/4]
+  - [-] Jaccard Overlap of the K closest Neighbors for the top N types in the
+    dataset <2020-05-15 Fri>
+        - [ ] Probably should cite Laura's paper this as a measure of
+          embedding similarity
+        - [X] Script and calculations on various embeddings types
+  - [-] Try to fit a rotation matrix that maps one embedding space to another <2020-05-15 Fri>
+        - [ ] Need to find the WiML poster I saw at NeurIPS 2018 to cite
+        - [X] Implementation of the transformation (only look at the words
+          that are in both vocab?)
+  - [ ] Verify these stats can predict embeddings that work together by
+    training a dataset with a mix of embeddings and seeing which help and
+    which don't
+  - [ ] estimate the sense of the embeddings for each pre-trained embedding and
+    see if that is different or not between embeddings
+* TODO Demonstrate the multiple embedding effectiveness on internal datasets [2/2]
+  - [X] Classification <2020-05-16 Sat>
+        - [X] pizza Intent
+        - [X] cyber Intent
+        - [X] auto Intent
+  - [X] Tagging <2020-05-16 Sat>
+        - [X] pizza Slotfilling
+        - [X] NER
+        - [X] auto slotfilling
+        - [X] cyber slotfilling
+* TODO Look into splitting this into two short papers [0/2]
+  - [ ] More talk about how contextual embeddings are slow?
+  - [ ] More talk about the analysis of the multi embeddings
+* TODO Actually write the paper <2020-06-01 Mon>

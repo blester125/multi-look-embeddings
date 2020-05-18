@@ -19,11 +19,13 @@ def complement_vocab(base_vocab: wv.Vocab, new_vocab: wv.Vocab, new_vectors: wv.
     new_new_vectors = []
     new_new_vocab = {}
     new_idx = 0
+    import pdb; pdb.set_trace()
     for word, idx, in new_vocab.items():
         if word not in base_vocab and word not in new_new_vocab:
             new_new_vocab[word] = new_idx
             new_idx += 1
             new_new_vectors.append(new_vectors[idx])
+    import pdb; pdb.set_trace()
     new_new_vectors = np.array(new_new_vectors)
     assert len(new_new_vocab) == new_new_vectors.shape[0]
     return new_new_vocab, new_new_vectors
@@ -86,7 +88,7 @@ def main():
         new_vocab, new_vectors = embeddings[embed_label]
         vocab, vectors = complement_vocab(base_vocab, new_vocab, new_vectors)
         if vocab:
-            embedding_info.append({"label": label, "file": output, "dsz": vectors.shape[0]})
+            embedding_info.append({"label": label, "file": output, "dsz": vectors.shape[1]})
             write_embeddings(output, vocab, vectors, args.output_format)
             for w in vocab:
                 base_vocab[w] = len(base_vocab)

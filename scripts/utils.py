@@ -1,9 +1,41 @@
 import argparse
-from typing import List, Dict, Tuple, Callable, Optional
+from typing import List, Dict, Tuple, Callable, Optional, Set
 import word_vectors as wv
 from baseline.utils import EmbeddingDownloader, DataDownloader, read_conll, read_label_first_data
 from mead.utils import index_by_label, read_config_file_or_json
 
+STOP_WORDS: Set[str] = {
+    "-docstart-",
+    ",",
+    ".",
+    "in",
+    "a",
+    "the",
+    "of",
+    "to",
+    "(",
+    ")",
+    "and",
+    '"',
+    "on",
+    "'s",
+    "for",
+    "at",
+    "with",
+    "that",
+    "from",
+    "is",
+    "by",
+    "as",
+    "had",
+    "has",
+    "was",
+    "it",
+    "but",
+    "its",
+    "who",
+    "they",
+}
 
 def required_length(min_):
     class RequiredLength(argparse.Action):
