@@ -3,7 +3,7 @@ from operator import or_
 from itertools import chain
 from functools import reduce
 from collections import Counter
-from typing import List, Set, Dict, Union
+from typing import List, Set, Dict, Union, Optional
 from tabulate import tabulate
 from .utils import load_embeddings, load_dataset, read_conll_dataset, read_label_first
 
@@ -15,8 +15,10 @@ def lowercase(tokens: List[List[str]]) -> List[List[str]]:
     ]
 
 
-def calc_attested(dataset: List[List[str]], vocab: Union[Set[str], Dict[str, int]]):
+def calc_attested(dataset: List[List[str]], vocab: Union[Set[str], Dict[str, int]], limit: Optional[int] = None):
     counts = Counter(chain(*dataset))
+    if limit is not None:
+        counts = dict(counts.most_common(limit))
     types = 0
     tokens = 0
     for word, count in counts.items():
@@ -27,8 +29,8 @@ def calc_attested(dataset: List[List[str]], vocab: Union[Set[str], Dict[str, int
     return {
         "types": types,
         "tokens": tokens,
-        "type_percent": types / len(counts),
-        "tokens_percent": tokens / tok_count,
+        "type_percent": types / len(counts) * 100,
+        "tokens_percent": tokens / tok_count * 100,
         "total_types": len(counts),
         "total_tokens": tok_count,
     }
@@ -44,6 +46,7 @@ def main():
     parser.add_argument("--data_type", "--data-type", default="conll", choices=("conll", "label-first"))
     parser.add_argument("--surface_index", "--surface-index", default=0, type=int)
     parser.add_argument("--lowercase", action="store_true")
+    parser.add_argument("--top_k", "--top-k", type=int)
     parser.add_argument("--delim")
     args = parser.parse_args()
 
@@ -78,7 +81,7 @@ def main():
                 "dataset": dataset_name,
                 "embedding": name,
             })
-            attested[-1].update(calc_attested(data, vocab))
+            attested[-1].update(calc_attested(data, vocab, args.top_k))
 
     print(tabulate(attested, headers="keys", tablefmt="psql", floatfmt=".2f"))
 
