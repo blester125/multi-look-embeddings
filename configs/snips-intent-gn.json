@@ -1,6 +1,8 @@
 {
   "version": 2,
-  "modules": ["reader_parallel_classify"],
+  "modules": [
+    "reader_parallel_classify"
+  ],
   "task": "classify",
   "basedir": "./snips-intent",
   "batchsz": 50,
@@ -9,7 +11,7 @@
       "name": "word",
       "vectorizer": {
         "type": "token1d",
-	"transform": "baseline.lowercase"
+        "transform": "baseline.lowercase"
       },
       "embeddings": {
         "label": "w2v-gn"

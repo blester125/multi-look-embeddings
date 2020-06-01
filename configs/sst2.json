@@ -1,46 +1,46 @@
 {
-	"task": "classify",
-    "batchsz": 50,
-    "basedir": "./sst2-lstm",
-    "features": [
-		{
-			"name": "word",
-			"vectorizer": {
-				"type": "token1d"
-			},
-			"embeddings": {
-				"label": "glove-840B"
-			}
-		},
-		{
-			"name": "word2",
-			"vectorizer": {
-				"type": "token1d"
-			},
-			"embeddings": {
-				"label": "w2v-gn"
-			}
-		}
-    ],
-    "preproc": {
-	    "clean": true
+  "task": "classify",
+  "batchsz": 50,
+  "basedir": "./sst2-lstm",
+  "features": [
+    {
+      "name": "word",
+      "vectorizer": {
+        "type": "token1d"
+      },
+      "embeddings": {
+        "label": "glove-840B"
+      }
     },
-    "backend": "tensorflow",
-    "dataset": "SST2",
-    "loader": {
-	"reader_type": "default"
-    },
-    "unif": 0.25,
-    "model": {
-	    "model_type": "lstm",
-	    "hsz": 400,
-	    "dropout": 0.5
-    },
-    "train": {
-	"epochs": 5,
-	"optim": "adamw",
-	"eta": 0.0008,
-        "weight_decay": 1.0e-5,
-	    "early_stopping_metric": "acc"
+    {
+      "name": "word2",
+      "vectorizer": {
+        "type": "token1d"
+      },
+      "embeddings": {
+        "label": "w2v-gn"
+      }
     }
+  ],
+  "preproc": {
+    "clean": true
+  },
+  "backend": "tensorflow",
+  "dataset": "SST2",
+  "loader": {
+    "reader_type": "default"
+  },
+  "unif": 0.25,
+  "model": {
+    "model_type": "lstm",
+    "hsz": 400,
+    "dropout": 0.5
+  },
+  "train": {
+    "epochs": 5,
+    "optim": "adamw",
+    "eta": 0.0008,
+    "weight_decay": 1e-05,
+    "early_stopping_metric": "acc"
+  }
 }

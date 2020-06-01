@@ -20,11 +20,14 @@
       "vectorizer": {
         "type": "dict2d"
       },
-      "embeddings": { "dsz": 30, "wsz": 20, "type": "char-conv" }
+      "embeddings": {
+        "dsz": 30,
+        "wsz": 20,
+        "type": "char-conv"
+      }
     }
   ],
-  "preproc": {
-  },
+  "preproc": {},
   "backend": "pytorch",
   "dataset": "ontonotes",
   "loader": {
@@ -41,7 +44,9 @@
     ],
     "hsz": 400,
     "dropout": 0.63,
-    "dropin": {"word": 0.1},
+    "dropin": {
+      "word": 0.1
+    },
     "rnntype": "blstm",
     "layers": 2,
     "constrain_decode": true,
@@ -58,4 +63,3 @@
     "span_type": "iobes"
   }
 }
-
