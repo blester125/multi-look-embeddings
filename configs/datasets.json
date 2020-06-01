@@ -45,19 +45,19 @@
     "label": "wnut-iobes"
   },
   {
-    "train_file": "atis-2.train.iobes",
-    "valid_file": "atis-2.dev.iobes",
-    "test_file": "atis.test.iobes",
-    "download": "https://www.dropbox.com/s/4xfyr676svx2i5j/atis.tar.gz?dl=1",
-    "sha1": "670af66ca326e915a2f887105bea439bfb00693c",
-    "label": "atis-iobes"
-  },
-  {
     "train_file": "train.conll",
     "valid_file": "dev.conll",
     "test_file": "test.conll",
     "download": "https://www.dropbox.com/s/ezyxuaqjrpa8kjf/snips-iobes.tar.gz?dl=1",
     "sha1": "73ce4a5d24ff9140e14d537b5b2972b13430c059",
     "label": "snips-iobes"
+  },
+  {
+    "train_file": "train",
+    "valid_file": "dev",
+    "test_file": "test",
+    "download": "https://www.dropbox.com/s/lsrdntgu30ftg5l/snips.tar.gz?dl=1",
+    "sha1": "c3dd1bff7ad965303065549a05a7f420fc6f3279",
+    "label": "snips"
   }
 ]
