@@ -2,3 +2,5 @@
 *.pyc
 *.pdf
 **/data/*
+
+*/internal-datasets.json
