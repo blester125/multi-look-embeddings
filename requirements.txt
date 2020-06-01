@@ -4,3 +4,4 @@ tabulate
 mead-baseline
 numpy
 tensorflow>=2.0.0
+torch>=1.3
