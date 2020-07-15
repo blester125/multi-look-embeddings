@@ -1,6 +1,7 @@
 import argparse
 from typing import List, Dict, Tuple, Callable, Optional, Set
 import word_vectors as wv
+from file_or_name import file_or_name
 from baseline.utils import EmbeddingDownloader, DataDownloader, read_conll, read_label_first_data
 from mead.utils import index_by_label, read_config_file_or_json
 
@@ -94,6 +95,14 @@ def read_label_first(
 ) -> List[List[str]]:
     _, surfaces = read_label_first_data(file_name)
     return surfaces
+
+
+def read_parallel(
+    f: str,
+    **keargs
+) -> List[List[str]]:
+    with open(f + ".txt") as f:
+        return [l.strip().split() for l in f]
 
 
 def load_dataset(

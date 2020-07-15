@@ -4,3 +4,5 @@
 **/data/*
 
 */internal-datasets.json
+.condaauto
+.mypy_cache

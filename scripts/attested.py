@@ -5,7 +5,7 @@ from functools import reduce
 from collections import Counter
 from typing import List, Set, Dict, Union, Optional
 from tabulate import tabulate
-from .utils import load_embeddings, load_dataset, read_conll_dataset, read_label_first
+from .utils import load_embeddings, load_dataset, read_conll_dataset, read_label_first, read_parallel
 
 
 def lowercase(tokens: List[List[str]]) -> List[List[str]]:
@@ -43,7 +43,7 @@ def main():
     parser.add_argument("--cache", default="data")
     parser.add_argument("--dataset", required=True)
     parser.add_argument("--datasets_index", "--datasets-index", default="configs/datasets.json")
-    parser.add_argument("--data_type", "--data-type", default="conll", choices=("conll", "label-first"))
+    parser.add_argument("--data_type", "--data-type", default="conll", choices=("conll", "label-first", "parallel"))
     parser.add_argument("--surface_index", "--surface-index", default=0, type=int)
     parser.add_argument("--lowercase", action="store_true")
     parser.add_argument("--top_k", "--top-k", type=int)
@@ -53,6 +53,13 @@ def main():
     embeddings = load_embeddings(args.embeddings, args.embeddings_index, args.cache)
 
     read = read_conll_dataset if args.data_type == "conll" else read_label_first
+    if args.data_type == "conll":
+        read = read_conll_dataset
+    elif args.data_type == "label-first":
+        read = read_label_first
+    else:
+        read = read_parallel
+
     dataset = load_dataset(
         args.dataset,
         args.datasets_index,
