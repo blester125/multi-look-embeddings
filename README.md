@@ -13,7 +13,7 @@ Train mead-baseline models with `mead-train --config configs/sst2.json`
 If you use this multiple embedding technique or any of these analysis tools in your research please cite the following:
 
 ```BibTex
-@article{lester2020multiple,
+@article{lester-2020-multiple,
   title={Multiple Word Embeddings for Increased Diversity of Representation},
   author={Lester, Brian and Pressel, Daniel and Hemmeter, Amy and Choudhury, Sagnik Ray and Bangalore, Srinivas},
   journal={arXiv preprint arXiv:2009.14394},
